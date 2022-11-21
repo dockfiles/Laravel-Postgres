@@ -12,6 +12,7 @@ This setup:
 - Memcached preconfigured
 
 Note that this setup comes with a preconfigured `.env.example` (copied & renamed to `.env` at install-time), `database.php`, and `phpunit.xml` that get copied into your project directory upon installation.
+
 The databases and the cache driver do not need to be manually configured.
 
 # Requirements
