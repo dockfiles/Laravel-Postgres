@@ -49,7 +49,8 @@ docker compose up -d
 ```
 
 This will run all dependencies to start serving Laravel on your `localhost`.
-If you see a Forbidden error, try restarting the containers with `docker compose restart`.
+
+If you see an Nginx Forbidden error, try restarting the containers with `docker compose restart`.
 
 # Database Login
 
