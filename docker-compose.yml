@@ -1,5 +1,4 @@
 version: "3.8"
-
 services:
   php:
     build:
@@ -15,7 +14,7 @@ services:
       - "host.docker.internal:host-gateway"
     networks:
       - laravel
-
+        
   nginx:
     build:
       context: "./.docker/nginx"
@@ -29,7 +28,7 @@ services:
       - ./src:/var/www/html
     networks:
       - laravel
-
+        
   postgres:
     image: postgres:14.1
     container_name: postgres
@@ -44,7 +43,7 @@ services:
       - db_data:/var/lib/postgresql/data
     networks:
       - laravel
-
+        
   test_db:
     image: postgres:14.1
     container_name: test_db
@@ -59,7 +58,7 @@ services:
       - test_db_data:/var/lib/postgresql/data
     networks:
       - laravel
-
+        
   memcached:
     image: memcached:1.6.15-alpine
     container_name: memcached
@@ -69,7 +68,16 @@ services:
       - 11211:11211
     networks:
       - laravel
-
+        
+  redis:
+    image: redis:7.2.2-alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    networks:
+      - laravel
+        
   installer:
     profiles: ["installer"]
     build:
@@ -78,7 +86,7 @@ services:
     container_name: installer
     volumes:
       - ./:/app/laravel
-
+        
   artisan:
     profiles: ["artisan"]
     build:
@@ -89,7 +97,7 @@ services:
       - ./:/app/laravel
     networks:
       - laravel
-
+        
   composer:
     profiles: ["composer"]
     build:
@@ -100,7 +108,7 @@ services:
       - ./:/app/laravel
     networks:
       - laravel
-
+        
   npm:
     profiles: ["npm"]
     build:
@@ -111,11 +119,11 @@ services:
       - ./:/app/laravel
     networks:
       - laravel
-
+        
 volumes:
   db_data: {}
   test_db_data: {}
-
+    
 networks:
   laravel:
     driver: bridge

@@ -4,7 +4,7 @@ FROM php:8.1-fpm-alpine3.15
 COPY --from=composer /usr/bin/composer /usr/bin/composer 
 
 
-# Install PHP Extensions (igbinary & memcached)
+# Install igbinary & memcached
 RUN apk add --no-cache --update libmemcached-libs zlib libsodium-dev icu-dev
 RUN set -xe && \
     cd /tmp/ && \
@@ -30,6 +30,14 @@ RUN set -xe && \
     docker-php-ext-install sodium intl && \
     docker-php-ext-configure intl && \
     docker-php-ext-enable sodium intl
+
+
+# Install phpredis
+RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && \
+    pecl update-channels && \
+    pecl install redis && \
+    docker-php-ext-enable redis && \
+    apk del $PHPIZE_DEPS
 
 
 WORKDIR /app/laravel/src

@@ -3,7 +3,8 @@ FROM php:8.1-fpm-alpine3.15
 RUN apk add --update libpq-dev libsodium-dev icu-dev && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
     docker-php-ext-configure intl && \
-    docker-php-ext-install pdo pdo_pgsql pgsql mysqli pdo_mysql sodium intl && \
+    docker-php-ext-configure pcntl --enable-pcntl && \
+    docker-php-ext-install pdo pdo_pgsql pgsql mysqli pdo_mysql sodium intl pcntl && \
     docker-php-ext-enable pdo_mysql sodium intl
 
 
@@ -12,7 +13,7 @@ RUN apk add --no-cache $PHPIZE_DEPS && \
     docker-php-ext-enable xdebug
 
 
-# Install PHP Extensions (igbinary & memcached)
+# Install igbinary & memcached
 RUN apk add --no-cache --update libmemcached-libs zlib
 RUN set -xe && \
     cd /tmp/ && \
@@ -36,9 +37,12 @@ RUN set -xe && \
     apk del .memcached-deps .phpize-deps
 
 
-RUN docker-php-ext-configure pcntl --enable-pcntl && \
-    docker-php-ext-install \
-    pcntl
+# Install phpredis
+RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && \
+    pecl update-channels && \
+    pecl install redis && \
+    docker-php-ext-enable redis && \
+    apk del $PHPIZE_DEPS
 
 
 RUN addgroup -g 1000 php

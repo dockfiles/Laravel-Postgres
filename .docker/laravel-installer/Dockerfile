@@ -12,7 +12,7 @@ COPY .env.example /app
 COPY database.php /app
 COPY phpunit.xml /app
 
-# Install PHP Extensions (igbinary & memcached)
+# Install igbinary & memcached
 RUN apk add --no-cache --update libmemcached-libs zlib
 RUN set -xe && \
     cd /tmp/ && \
@@ -36,6 +36,14 @@ RUN set -xe && \
     apk del .memcached-deps .phpize-deps
 
 
+# Install phpredis
+RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && \
+    pecl update-channels && \
+    pecl install redis && \
+    docker-php-ext-enable redis && \
+    apk del $PHPIZE_DEPS
+
+
 # Downloads latest Composer
 RUN EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')" \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -53,4 +61,3 @@ RUN rm composer-setup.php
 
 # Create laravel project and chown to non-root user
 ENTRYPOINT sh /app/entrypoint.sh
-

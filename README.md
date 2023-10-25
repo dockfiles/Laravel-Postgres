@@ -1,4 +1,4 @@
-# Laravel + Postgres + Memcached + Composer
+# Laravel + Postgres + Composer + Cache
 
 This is a dead simple docker-compose setup to create new Laravel apps without abstracting away the Dockerfiles.
 
@@ -9,7 +9,7 @@ This setup:
 - Nginx (1.17-alpine)
 - 2 preconfigured PostgreSQL 14.1 databases. 1 for app data, and 1 for testing.
 - Composer 2.2.5
-- Memcached preconfigured
+- Redis & Memcached preconfigured
 
 Note that this setup comes with a preconfigured `.env.example` (copied & renamed to `.env` at install-time), `database.php`, and `phpunit.xml` that get copied into your project directory upon installation.
 
@@ -42,7 +42,7 @@ cd laravel-postgres
 docker compose run installer
 ```
 
-### 3. Run the PHP/Nginx/Postgres stack
+### 3. Run the PHP/Nginx/Postgres/Cache stack
 
 ```bash
 docker compose up -d
