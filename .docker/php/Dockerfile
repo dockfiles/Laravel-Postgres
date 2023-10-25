@@ -1,14 +1,15 @@
 FROM php:8.1-fpm-alpine3.15
 
-RUN apk add --update libpq-dev \
-    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_pgsql pgsql mysqli pdo_mysql \
-    && docker-php-ext-enable pdo_mysql
+RUN apk add --update libpq-dev libsodium-dev icu-dev && \
+    docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
+    docker-php-ext-configure intl && \
+    docker-php-ext-install pdo pdo_pgsql pgsql mysqli pdo_mysql sodium intl && \
+    docker-php-ext-enable pdo_mysql sodium intl
 
 
-RUN apk add --no-cache $PHPIZE_DEPS \
-    && pecl install xdebug-3.1.3 \
-    && docker-php-ext-enable xdebug
+RUN apk add --no-cache $PHPIZE_DEPS && \
+    pecl install xdebug-3.1.3 && \
+    docker-php-ext-enable xdebug
 
 
 # Install PHP Extensions (igbinary & memcached)
@@ -35,8 +36,8 @@ RUN set -xe && \
     apk del .memcached-deps .phpize-deps
 
 
-RUN docker-php-ext-configure pcntl --enable-pcntl \
-  && docker-php-ext-install \
+RUN docker-php-ext-configure pcntl --enable-pcntl && \
+    docker-php-ext-install \
     pcntl
 
 

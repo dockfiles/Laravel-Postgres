@@ -1,9 +1,9 @@
 FROM php:8.1-fpm-alpine3.15
 
-RUN apk add --update libpq-dev \
-    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_pgsql pgsql mysqli pdo_mysql \
-    && docker-php-ext-enable pdo_mysql
+RUN apk add --update libpq-dev libsodium-dev icu-dev && \
+    docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
+    docker-php-ext-configure intl && \
+    docker-php-ext-install pdo pdo_pgsql pgsql mysqli pdo_mysql sodium intl
 
 WORKDIR /app
 
@@ -31,7 +31,7 @@ RUN set -xe && \
     cd /tmp/ \
     ) && \
     # Enable PHP extensions
-    docker-php-ext-enable igbinary memcached && \
+    docker-php-ext-enable pdo_mysql igbinary memcached sodium intl && \
     rm -rf /tmp/* && \
     apk del .memcached-deps .phpize-deps
 
