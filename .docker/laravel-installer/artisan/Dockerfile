@@ -39,6 +39,10 @@ RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && \
     apk del $PHPIZE_DEPS
 
 
+# Install less, sometimes used by artisan tinker to view output
+RUN apk add --no-cache less
+
+
 WORKDIR /entrypoint
 COPY entrypoint.sh /entrypoint
 RUN chmod +x /entrypoint/entrypoint.sh
