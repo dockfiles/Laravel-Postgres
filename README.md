@@ -10,7 +10,7 @@ This setup:
 - 2 preconfigured PostgreSQL 14.1 databases. 1 for app data, and 1 for testing.
 - Composer 2.2.5
 - Redis & Memcached preconfigured
-- Includes a node v20 container to run npm commands
+- Includes a NodeJS v20 container to run npm commands
 
 Note that this setup comes with a preconfigured `.env.example` (copied & renamed to `.env` at install-time), `database.php`, and `phpunit.xml` that get copied into your project directory upon installation.
 
