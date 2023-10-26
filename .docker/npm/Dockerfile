@@ -1,4 +1,4 @@
-FROM node:17-alpine3.14
+FROM node:20-alpine3.17
 
 WORKDIR /app/laravel/src
 

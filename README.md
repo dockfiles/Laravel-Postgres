@@ -10,6 +10,7 @@ This setup:
 - 2 preconfigured PostgreSQL 14.1 databases. 1 for app data, and 1 for testing.
 - Composer 2.2.5
 - Redis & Memcached preconfigured
+- Includes a node v20 container to run npm commands
 
 Note that this setup comes with a preconfigured `.env.example` (copied & renamed to `.env` at install-time), `database.php`, and `phpunit.xml` that get copied into your project directory upon installation.
 
@@ -61,7 +62,13 @@ Some default credentials are set in `docker-compose.yml`
 - POSTGRES_PASSWORD: password
 - POSTGRES_DB: postgres
 
-# Running Composer Commands
+# Using the Utility Containers
+
+Several utility containers are included in this setup. 
+You are not required to use them if you have the compatible versions of the utilities installed on your system.
+But they are included if needed.
+
+## Running Composer Commands
 
 To run composer commands, prefix the command with `docker compose run`
 
@@ -75,7 +82,7 @@ docker compose run composer require laravel/breeze --dev
 docker compose run composer update
 ```
 
-# Running Artisan Commands
+## Running Artisan Commands
 
 To run artisan commands, prefix the command with `docker compose run`
 
@@ -91,4 +98,18 @@ docker compose run artisan test
 
 ```bash
 docker compose run artisan make:controller ExampleController
+```
+
+## Running npm Commands
+
+To run npm commands, prefix the command with `docker compose run`
+
+Examples: 
+
+```bash
+docker compose run npm install --save-dev prettier
+```
+
+```bash
+docker compose run npm update
 ```
