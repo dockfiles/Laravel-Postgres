@@ -8,7 +8,7 @@ This setup:
 - Utility artisan container to run artisan commands
 - Nginx (1.17-alpine)
 - 2 preconfigured PostgreSQL 14.1 databases. 1 for app data, and 1 for testing.
-- Composer 2.2.5
+- Composer 2.7.6
 - Redis & Memcached preconfigured
 - Includes a NodeJS v20 container to run npm commands
 
