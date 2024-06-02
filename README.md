@@ -4,7 +4,7 @@ This is a dead simple docker-compose setup to create new Laravel apps without ab
 
 This setup:
 
-- Uses PHP 8.1 & installs the latest available version of Laravel
+- Uses PHP 8.3 & installs the latest available version of Laravel
 - Utility artisan container to run artisan commands
 - Nginx (1.17-alpine)
 - 2 preconfigured PostgreSQL 14.1 databases. 1 for app data, and 1 for testing.
