@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-alpine3.15
+FROM php:8.3-fpm-alpine3.17
 
 RUN apk add --update libpq-dev libsodium-dev icu-dev && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \

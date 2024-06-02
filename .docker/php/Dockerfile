@@ -1,15 +1,15 @@
-FROM php:8.1-fpm-alpine3.15
+FROM php:8.3-fpm-alpine3.17
 
-RUN apk add --update libpq-dev libsodium-dev icu-dev && \
+RUN apk add --update libpq-dev libsodium-dev icu-dev linux-headers && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
     docker-php-ext-configure intl && \
     docker-php-ext-configure pcntl --enable-pcntl && \
     docker-php-ext-install pdo pdo_pgsql pgsql mysqli pdo_mysql sodium intl pcntl && \
     docker-php-ext-enable pdo_mysql sodium intl
 
-
 RUN apk add --no-cache $PHPIZE_DEPS && \
-    pecl install xdebug-3.1.3 && \
+    # pecl install xdebug-3.1.3 && \
+    pecl install xdebug-3.3.0 && \
     docker-php-ext-enable xdebug
 
 
