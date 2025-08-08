@@ -1,4 +1,4 @@
-# Laravel + Postgres + Composer + Cache
+# Laravel + Postgres + Composer + Mailhog + Cache
 
 This is a dead simple docker-compose setup to create new Laravel apps without abstracting away the Dockerfiles.
 
@@ -10,6 +10,7 @@ This setup:
 - 2 preconfigured PostgreSQL 14.1 databases. 1 for app data, and 1 for testing.
 - Composer 2.7.6
 - Redis & Memcached preconfigured
+- Mailhog to test emails
 - Includes a NodeJS v20 container to run npm commands
 
 Note that this setup comes with a preconfigured `.env.example` (copied & renamed to `.env` at install-time), `database.php`, and `phpunit.xml` that get copied into your project directory upon installation.
